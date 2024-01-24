@@ -11,6 +11,7 @@ const helmet = require('helmet');
 
 //Routes import--------
 const authRoutes = require('./routes/authRoutes/authRoutes');
+const blogRoutes=require('./routes/blogRoutes/blogRoutes');
 
 //Routes import--------
 
@@ -40,11 +41,13 @@ app.use(helmet());
 
 //limiter middlewares-----------
 app.use('/auth', limiter);
+// app.use('/blogs',limiter);
 //limiter middlewares-----------
 
 
 //Routes-----------------------
 app.use('/auth', authRoutes);
+app.use('/blogs',blogRoutes)
 //Routes-----------------------
 
 
