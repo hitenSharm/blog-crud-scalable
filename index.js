@@ -8,10 +8,12 @@ const rateLimit = require('express-rate-limit');
 //rateLimiter
 const helmet = require('helmet');
 //for security
+const redisHelper = require('./cachingLayer/redisClient');
+//caching
 
 //Routes import--------
 const authRoutes = require('./routes/authRoutes/authRoutes');
-const blogRoutes=require('./routes/blogRoutes/blogRoutes');
+const blogRoutes = require('./routes/blogRoutes/blogRoutes');
 
 //Routes import--------
 
@@ -27,6 +29,8 @@ mongoose.connect(mongoURI, { useNewUrlParser: true, useUnifiedTopology: true })
     .catch((error) => {
         console.error('MongoDB connection error:', error);
     });
+
+
 
 
 const limiter = rateLimit(rateLimitConfig);
@@ -47,7 +51,7 @@ app.use('/auth', limiter);
 
 //Routes-----------------------
 app.use('/auth', authRoutes);
-app.use('/blogs',blogRoutes)
+app.use('/blogs', blogRoutes)
 //Routes-----------------------
 
 

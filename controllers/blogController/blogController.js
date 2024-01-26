@@ -1,6 +1,9 @@
 const { default: mongoose } = require("mongoose");
 const Blog = require("../../models/Blog");
 const { atLeastOneNotEmpty, allNonEmpty } = require("../../utils/fieldValidator");
+const { updateBlogViewCount } = require("./blogService");
+const { publishClient, getInCache, setInCache, increaseKeyValue, deleteInCache } = require("../../cachingLayer/redisClient");
+
 
 const createBlog = async (req, res) => {
   try {
@@ -28,31 +31,39 @@ const getAllBlogs = async (req, res) => {
   }
 };
 
-//this is mainly for testing
+//this above is mainly for testing
 
 const getBlogById = async (req, res) => {
+  if (!mongoose.Types.ObjectId.isValid(req.params.blogId)) {
+    return res.status(404).json({ message: 'Blog not found' });
+  }
+
   try {
 
-    if(!mongoose.Types.ObjectId.isValid(req.params.blogId)){
-      return res.status(404).json({ message: 'Blog not found' });
+    let blog = await getInCache(`blogId ${req.params.blogId}`);
+    let cacheKeyCount = "view " + req.params.blogId;
+
+
+    if (blog) {
+      console.log("Cache hit");
+      //cache hit;
+      //change view+blogId key           
+      await increaseKeyValue(cacheKeyCount);
+      return res.json({ blog });
     }
 
-    const blog = await Blog.findById(req.params.blogId);    
+
+    blog = await Blog.findById(req.params.blogId);
     if (!blog) {
       return res.status(404).json({ message: 'Blog not found' });
     }
 
+    const result = await updateBlogViewCount(req.params.blogId, 1);
 
-    const result = await Blog.updateOne(
-      { _id: req.params.blogId },
-      { $inc: { views: 1 } }
-    );
-
-    //done like this for maintaining atomicity and prevent race conditions, can also add a version check
-    //mongo supports optimistic locking
-    if (result) {
-      console.log("view updated");
-    }
+    //set count and blog in cache
+    setInCache(`blogId ${req.params.blogId}`, blog, 10);
+    setInCache(cacheKeyCount, 1, 13);
+    console.log("set in cache both");
 
     res.json({ blog });
   } catch (error) {
@@ -78,6 +89,10 @@ const updateBlog = async (req, res) => {
       return res.status(404).json({ message: 'Blog not found' });
     }
 
+    let cacheKeyCount = "view " + req.params.blogId;
+    setInCache(`blogId ${req.params.blogId}`, updatedBlog, 10);
+    setInCache(cacheKeyCount, 1, 13);
+
     res.json({ message: 'Blog updated successfully', blog: updatedBlog });
   } catch (error) {
     res.status(500).json({ error: error.message });
@@ -92,6 +107,8 @@ const deleteBlog = async (req, res) => {
       return res.status(404).json({ message: 'Blog not found' });
     }
 
+    deleteInCache(`blogId ${req.params.id}`);
+
     res.json({ message: 'Blog deleted successfully', blog: deletedBlog });
   } catch (error) {
     res.status(500).json({ error: error.message });
@@ -102,10 +119,10 @@ const deleteBlog = async (req, res) => {
 //advanced enddpoints---------------------------------------------
 
 const getLatestNBlogs = async (req, res) => {
-  try {    
+  try {
     const { count } = req.query;
 
-    if(!allNonEmpty(count)){
+    if (!allNonEmpty(count)) {
       return res.status(400).json({ error: 'All parameters must be non-empty' });
     }
 
@@ -139,7 +156,7 @@ const searchBlogs = async (req, res) => {
   }
 };
 
-const getMostPopularBlogs = async (req, res) => {  
+const getMostPopularBlogs = async (req, res) => {
   try {
     const { page = 1, limit = 10 } = req.query;
     //this is paginated with some default values    
@@ -151,7 +168,7 @@ const getMostPopularBlogs = async (req, res) => {
       .limit(parseInt(limit));
 
     res.json({ blogs: mostPopularBlogs });
-  } catch (error) {    
+  } catch (error) {
     res.status(500).json({ error: error.message });
   }
 };
