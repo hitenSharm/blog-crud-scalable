@@ -16,6 +16,7 @@ router.get('/', blogController.getAllBlogs);
 router.post('/', authenticate, blogController.createBlog);
 
 router.get('/:blogId', blogController.getBlogById);
+router.get('/recommendations/:blogId',blogController.getBlogRecommendation);
 //no auth required
 //added auth middleware to these routes
 router.put('/:blogId', authenticate, blogController.updateBlog);

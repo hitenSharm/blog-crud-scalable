@@ -2,7 +2,9 @@ const { default: mongoose } = require("mongoose");
 const Blog = require("../../models/Blog");
 const { atLeastOneNotEmpty, allNonEmpty } = require("../../utils/fieldValidator");
 const { updateBlogViewCount } = require("./blogService");
-const { publishClient, getInCache, setInCache, increaseKeyValue, deleteInCache } = require("../../cachingLayer/redisClient");
+const { getInCache, setInCache, increaseKeyValue, deleteInCache } = require("../../cachingLayer/redisClient");
+const { checkDbForRec } = require("../../queues/queueServices");
+const { deleteRecommendation } = require("../recommendation");
 
 
 const createBlog = async (req, res) => {
@@ -58,7 +60,9 @@ const getBlogById = async (req, res) => {
       return res.status(404).json({ message: 'Blog not found' });
     }
 
-    const result = await updateBlogViewCount(req.params.blogId, 1);
+    updateBlogViewCount(req.params.blogId, 1);
+
+    checkDbForRec(req.params.blogId);    
 
     //set count and blog in cache
     setInCache(`blogId ${req.params.blogId}`, blog, 10);
@@ -107,7 +111,9 @@ const deleteBlog = async (req, res) => {
       return res.status(404).json({ message: 'Blog not found' });
     }
 
-    deleteInCache(`blogId ${req.params.id}`);
+    deleteInCache(`blogId ${req.params.blogId}`);
+    deleteRecommendation(req.params.blogId);
+    //dont really need to wait for it to delete
 
     res.json({ message: 'Blog deleted successfully', blog: deletedBlog });
   } catch (error) {
@@ -173,6 +179,12 @@ const getMostPopularBlogs = async (req, res) => {
   }
 };
 
+const getBlogRecommendation = async (req, res) => {
+  let viewedBlogId = req.params.blogId;
+  let recs = await checkDbForRec(viewedBlogId);
+  return res.json(recs);
+}
+
 module.exports = {
   createBlog,
   getAllBlogs,
@@ -181,5 +193,6 @@ module.exports = {
   deleteBlog,
   getLatestNBlogs,
   searchBlogs,
-  getMostPopularBlogs
+  getMostPopularBlogs,
+  getBlogRecommendation
 };

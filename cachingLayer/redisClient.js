@@ -53,7 +53,7 @@ const deleteInCache = (key) => {
 const increaseKeyValue = async (key) => {
   try {
     const newValue = await publishClient.incr(key);
-    console.log(`The new value of 'myCounter' is: ${newValue}`);
+    console.log(`The new value of is: ${newValue}`);
   } catch (error) {
     console.error(error);
   }

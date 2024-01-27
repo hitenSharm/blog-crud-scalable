@@ -14,6 +14,7 @@ const redisHelper = require('./cachingLayer/redisClient');
 //Routes import--------
 const authRoutes = require('./routes/authRoutes/authRoutes');
 const blogRoutes = require('./routes/blogRoutes/blogRoutes');
+const madge = require('madge');
 
 //Routes import--------
 
@@ -55,6 +56,11 @@ app.use('/blogs', blogRoutes)
 //Routes-----------------------
 
 
+// madge('/home/vboxuser/Documents/projects/blogging/index.js').then((res) => res.svg())
+// .then((output) => {
+//     console.log(output.toString());
+// });
+//this is to create a dependency graph
 app.listen(PORT, () => {
     console.log(`Server listening on PORT : ${PORT}`);
 })
