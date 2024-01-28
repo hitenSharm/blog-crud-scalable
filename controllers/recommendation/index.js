@@ -13,7 +13,7 @@ const updateRecommendation = async (viewedBlogId, recommendations) => {
         await recommendation.save();
 
         //set in cache
-        setInCache(`Rec ${viewedBlogId}`, recommendations, 10);
+        setInCache(`Rec ${viewedBlogId}`, recommendations, 100);
 
         return recommendation;
     } catch (error) {
@@ -37,7 +37,7 @@ const saveRecommendation = async (viewedBlogId, recommendations) => {
         await recommendation.save();
 
         //set in cache
-        setInCache(`Rec ${viewedBlogId}`, recommendations, 10);
+        setInCache(`Rec ${viewedBlogId}`, recommendations, 100);
 
         console.log('Recommendation saved successfully');
         return recommendation;

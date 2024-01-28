@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jest --forceExit --detectOpenHandles  --watchAll --maxWorkers=1"
   },
   "keywords": [],
   "author": "",
@@ -22,6 +22,10 @@
     "madge": "^6.1.0",
     "mongoose": "^8.1.0",
     "natural": "^6.10.4",
-    "stopword": "^3.0.1"
+    "stopword": "^3.0.1",
+    "supertest": "^6.3.4"
+  },
+  "devDependencies": {
+    "jest": "^29.7.0"
   }
 }

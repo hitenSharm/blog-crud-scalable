@@ -36,7 +36,7 @@ if(!db hit and !cache hit){
 }
 
 ### When someone views a blog:
-
+This also helps implement a sort of lazy loading for recommendation feature
 if(cache hit){
     increase view count for blog in cache(shadow key)
     return cache[blog];
@@ -54,3 +54,24 @@ else{
 recommendations=getRecommendations(id);
 add in cache
 add to recommendation db
+
+## Further Scalability & Recommendations:
+
+Load Balancing can be done across multiple servers
+MongoDB can be horizontally scaled.
+
+We can create a seperate db called Views in which we store all the blogs viewed by user to create a recommendation for the user on a daily basis with a cron job maybe. Most websites don't regenerate recommendation each time. In youtube if we watch a video from home and go back without refreshing the home page recommendation remains same.
+
+### Testing:
+I do not know much about testing so I just implemented basic testing for auth.
+
+## Setup:
+Start redis
+
+sudo service redis-server start
+
+Make sure mongo is running
+
+node index.js
+
+Do auth first and use the token for all subsequent requests with "Bearer" prefix.

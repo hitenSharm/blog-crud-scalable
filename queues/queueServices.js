@@ -8,6 +8,7 @@ const addBlogToQueue = async (viewedBlogId) => {
 }
 
 const checkDbForRec = async (viewedBlogId) => {
+    //there should be a check for making sure the blog exists in the db itself 
     let recommendationCheck = await getInCache(`Rec ${viewedBlogId}`);
     if (recommendationCheck) {
         return recommendationCheck;

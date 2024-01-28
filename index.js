@@ -8,15 +8,15 @@ const rateLimit = require('express-rate-limit');
 //rateLimiter
 const helmet = require('helmet');
 //for security
-const redisHelper = require('./cachingLayer/redisClient');
 //caching
 
 //Routes import--------
 const authRoutes = require('./routes/authRoutes/authRoutes');
 const blogRoutes = require('./routes/blogRoutes/blogRoutes');
-const madge = require('madge');
-
 //Routes import--------
+
+//designs system
+const madge = require('madge');
 
 
 const app = express();
@@ -46,7 +46,7 @@ app.use(helmet());
 
 //limiter middlewares-----------
 app.use('/auth', limiter);
-// app.use('/blogs',limiter);
+//app.use('/blogs',limiter);
 //limiter middlewares-----------
 
 
@@ -64,3 +64,5 @@ app.use('/blogs', blogRoutes)
 app.listen(PORT, () => {
     console.log(`Server listening on PORT : ${PORT}`);
 })
+
+module.exports=app;

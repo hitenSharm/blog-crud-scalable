@@ -65,8 +65,8 @@ const getBlogById = async (req, res) => {
     checkDbForRec(req.params.blogId);    
 
     //set count and blog in cache
-    setInCache(`blogId ${req.params.blogId}`, blog, 10);
-    setInCache(cacheKeyCount, 1, 13);
+    setInCache(`blogId ${req.params.blogId}`, blog, 100);
+    setInCache(cacheKeyCount, 1, 113);
     console.log("set in cache both");
 
     res.json({ blog });
@@ -94,8 +94,8 @@ const updateBlog = async (req, res) => {
     }
 
     let cacheKeyCount = "view " + req.params.blogId;
-    setInCache(`blogId ${req.params.blogId}`, updatedBlog, 10);
-    setInCache(cacheKeyCount, 1, 13);
+    setInCache(`blogId ${req.params.blogId}`, updatedBlog, 100);
+    setInCache(cacheKeyCount, 1, 113);
 
     res.json({ message: 'Blog updated successfully', blog: updatedBlog });
   } catch (error) {
