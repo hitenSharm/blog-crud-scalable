@@ -6,7 +6,7 @@ of it being in cache.
  a shadowing kind of mechanism as i cant get the value at key after expiry so i set another key 
  linked to the blogId with the expiry of the primary blogId key+(3 second)(drawback- when scaled if there are lots of keys expiring, this could be an issue. views might be a bit inconsistent at a large scale) (sidenote: i do not have much experience with redis)
 2. i create a seperate db in which i just store the blogId whenever someone views it and server found it in cache and returned that response. then we setup a cron job every 4 hours maybe which cleans this db for WasFoundInCache blogIds and updates the views. (Drawback- CRON job can be intensive as there will be cleanup involved and the whole WasFoundInCache blogIds will be queried, slow at scale probably)
-3. Make incrementing views a seperate process using something like Bull queues. (maybe the best solution but i do not have enough knowledge or expertise so i went with 1st.)
+3. Make incrementing views a seperate process using something like Bull queues. (Did something similar for recommendation feature.)
 
 Other possible places for caching:
 1. If we know beforehand about frequent search queries, we can configure to cache those specific keywords
