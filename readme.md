@@ -1,8 +1,6 @@
-get blog by id caching was a bit tricky
-as when i want to view a blog that means i need to update the view
-this also means that traditionally speaking, i will need to access the blog regardless 
+## Issues I had:
+Get blog by id caching was a bit tricky as when i want to view a blog that means i need to update the view this also means that traditionally speaking, i will need to access the blog regardless 
 of it being in cache.
-
 3 possible solutions:
 1. when a key expires in redis regarding blog id I notify the db to update the views. This also need
  a shadowing kind of mechanism as i cant get the value at key after expiry so i set another key 
@@ -24,6 +22,7 @@ this will also be in redis cache
 
 ### When someone hits get recommendation endpoint for a blog:
 This is a seperate end point (frontend does a new api call for this)
+```
 if(cache hit [blogId]->recommended){
     return recommendations;
 }
@@ -34,9 +33,11 @@ if(db hit){
 if(!db hit and !cache hit){
     addProcessingForBlogInQueue(blogId);----> generate blogs recommendation for the first time
 }
+```
 
 ### When someone views a blog:
 This also helps implement a sort of lazy loading for recommendation feature
+```
 if(cache hit){
     increase view count for blog in cache(shadow key)
     return cache[blog];
@@ -49,7 +50,7 @@ else{
     increment view
     return blog;
 }
-
+```
 ### addProcessingForBlogInQueue(blogId):
 recommendations=getRecommendations(id);
 add in cache
@@ -67,11 +68,13 @@ I do not know much about testing so I just implemented basic testing for auth.
 
 ## Setup:
 Start redis
-
+```
 sudo service redis-server start
-
+```
 Make sure mongo is running
-
+```
 node index.js
-
+```
 Do auth first and use the token for all subsequent requests with "Bearer" prefix.
+## System Layout
+![image](https://github.com/hitenSharma17/blog-crud/assets/142577930/7339ed9b-72c5-4539-91c9-2a785610518a)
