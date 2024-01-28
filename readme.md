@@ -15,7 +15,7 @@ serach will need debouncing on frontend
 3. most popular blogs same as point 2.
 
 ## Recommendation:
-I do not know much about how to build one. i have a rough idea from my NLP classes so i did that.
+I do not know much about how to build one. i have a rough idea from my NLP classes so i did that using Tf-IDF. I also tried Hamming Distance but its not accurate if some blogs have very less content.
 Optimisation: Async processing basic using bull.
 There is 1 collection which stores blogId: {reccomended blogIds}
 this will also be in redis cache
