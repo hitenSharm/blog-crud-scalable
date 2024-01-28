@@ -1,0 +1,47 @@
+{
+    "client": "Thunder Client",
+    "collectionName": "authentication",
+    "dateExported": "2024-01-28T09:03:40.505Z",
+    "version": "1.1",
+    "folders": [],
+    "requests": [
+        {
+            "_id": "9521c0d9-d5ce-4cf2-be84-f66307278928",
+            "colId": "6953b51a-d627-4f2f-8693-d4f339e400d8",
+            "containerId": "",
+            "name": "registerUser",
+            "url": "http://localhost:3000/auth/register",
+            "method": "POST",
+            "sortNum": 10000,
+            "created": "2024-01-23T13:27:43.292Z",
+            "modified": "2024-01-24T13:23:03.344Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"email\":\"hiten.sharmas1708@gmail.com\",\n  \"password\":\"abcd12346\"\n}",
+                "form": []
+            },
+            "tests": []
+        },
+        {
+            "_id": "1b829c9a-c5ab-4c3d-ab63-23715cc3b474",
+            "colId": "6953b51a-d627-4f2f-8693-d4f339e400d8",
+            "containerId": "",
+            "name": "login",
+            "url": "http://localhost:3000/auth/login",
+            "method": "POST",
+            "sortNum": 20000,
+            "created": "2024-01-23T13:28:00.818Z",
+            "modified": "2024-01-24T13:23:11.869Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"email\":\"hiten.sharmas1708@gmail.com\",\n  \"password\":\"abcd12346\"\n}",
+                "form": []
+            },
+            "tests": []
+        }
+    ]
+}

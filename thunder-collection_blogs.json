@@ -1,0 +1,180 @@
+{
+    "client": "Thunder Client",
+    "collectionName": "blogs",
+    "dateExported": "2024-01-28T09:03:52.759Z",
+    "version": "1.1",
+    "folders": [],
+    "requests": [
+        {
+            "_id": "06cfe5f3-1ea5-4f47-8367-dcda0a511e30",
+            "colId": "81abfb50-8c77-4385-9f1a-05100bd677cc",
+            "containerId": "",
+            "name": "create blog",
+            "url": "http://localhost:3000/blogs",
+            "method": "POST",
+            "sortNum": 10000,
+            "created": "2024-01-24T13:16:22.018Z",
+            "modified": "2024-01-24T17:12:30.016Z",
+            "headers": [
+                {
+                    "name": "Authorization",
+                    "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NWFmYmU0ZjQ0Mzk0ZjMxM2NmNDY5OTgiLCJlbWFpbCI6ImhpdGVuLnNoYXJtYTE3MDhAZ21haWwuY29tIiwiaWF0IjoxNzA2MTAyMjMxLCJleHAiOjE3MDYxMDU4MzF9.VfO6okFmeafci8EvpCHb3ZjxaV7f6ICMCNfZmt8Fwo0",
+                    "isDisabled": true
+                }
+            ],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"title\":\"test 8\",\n  \"content\":\"Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque sci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem.Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis\"\n}",
+                "form": []
+            },
+            "tests": []
+        },
+        {
+            "_id": "adc7c783-afac-4254-94cb-59fa56669676",
+            "colId": "81abfb50-8c77-4385-9f1a-05100bd677cc",
+            "containerId": "",
+            "name": "view blog by id",
+            "url": "http://localhost:3000/blogs/65b141d2a16677f3ab68b8db",
+            "method": "GET",
+            "sortNum": 20000,
+            "created": "2024-01-24T13:31:25.325Z",
+            "modified": "2024-01-28T08:33:37.720Z",
+            "headers": [],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "9d178086-5657-49df-a80c-e1ebd4555b4d",
+            "colId": "81abfb50-8c77-4385-9f1a-05100bd677cc",
+            "containerId": "",
+            "name": "updateBlogById",
+            "url": "http://localhost:3000/blogs/65b144fea4f880faaa915607",
+            "method": "PUT",
+            "sortNum": 30000,
+            "created": "2024-01-24T13:47:00.875Z",
+            "modified": "2024-01-26T17:22:31.515Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"title\":\"the title is new\",\n  \"content\":\"Did the cache change?\"\n}",
+                "form": []
+            },
+            "tests": []
+        },
+        {
+            "_id": "961549f2-d51a-45d0-a620-bc6982c3ee99",
+            "colId": "81abfb50-8c77-4385-9f1a-05100bd677cc",
+            "containerId": "",
+            "name": "delete blog",
+            "url": "http://localhost:3000/blogs/65b142793960f3fb51a6aa8a",
+            "method": "DELETE",
+            "sortNum": 40000,
+            "created": "2024-01-24T16:44:04.950Z",
+            "modified": "2024-01-28T07:57:07.635Z",
+            "headers": [],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "25566f51-8488-44b0-b1c8-e2887bd46679",
+            "colId": "81abfb50-8c77-4385-9f1a-05100bd677cc",
+            "containerId": "",
+            "name": "get all blogs",
+            "url": "http://localhost:3000/blogs",
+            "method": "GET",
+            "sortNum": 50000,
+            "created": "2024-01-24T16:45:07.245Z",
+            "modified": "2024-01-24T16:45:18.550Z",
+            "headers": [],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "3f50fa95-3497-4a88-a0db-d24f218d8454",
+            "colId": "81abfb50-8c77-4385-9f1a-05100bd677cc",
+            "containerId": "",
+            "name": "popula Blogs",
+            "url": "http://localhost:3000/blogs/popularBlogs?page=1&limit=3",
+            "method": "GET",
+            "sortNum": 60000,
+            "created": "2024-01-24T17:08:08.288Z",
+            "modified": "2024-01-28T08:33:55.809Z",
+            "headers": [],
+            "params": [
+                {
+                    "name": "page",
+                    "value": "1",
+                    "isPath": false
+                },
+                {
+                    "name": "limit",
+                    "value": "3",
+                    "isPath": false
+                }
+            ],
+            "tests": []
+        },
+        {
+            "_id": "81e2b966-c68e-49ac-9f86-1ae80f76a8ea",
+            "colId": "81abfb50-8c77-4385-9f1a-05100bd677cc",
+            "containerId": "",
+            "name": "search blogs",
+            "url": "http://localhost:3000/blogs/searchBlogs?keyword=test",
+            "method": "GET",
+            "sortNum": 70000,
+            "created": "2024-01-24T17:30:59.554Z",
+            "modified": "2024-01-24T17:32:07.393Z",
+            "headers": [],
+            "params": [
+                {
+                    "name": "keyword",
+                    "value": "test",
+                    "isPath": false
+                }
+            ],
+            "tests": []
+        },
+        {
+            "_id": "52cdbf55-d458-4de4-bd52-37b7cef664fa",
+            "colId": "81abfb50-8c77-4385-9f1a-05100bd677cc",
+            "containerId": "",
+            "name": "latest N",
+            "url": "http://localhost:3000/blogs/getLatestN?count=15",
+            "method": "GET",
+            "sortNum": 80000,
+            "created": "2024-01-24T17:32:32.779Z",
+            "modified": "2024-01-24T17:33:53.369Z",
+            "headers": [],
+            "params": [
+                {
+                    "name": "count",
+                    "value": "15",
+                    "isPath": false
+                }
+            ],
+            "tests": []
+        },
+        {
+            "_id": "111b9a79-eb7e-4e7e-9adb-ed7bc00f915b",
+            "colId": "81abfb50-8c77-4385-9f1a-05100bd677cc",
+            "containerId": "",
+            "name": "reccomendation",
+            "url": "http://localhost:3000/blogs/recommendations/65b141d2a16677f3ab68b8db",
+            "method": "GET",
+            "sortNum": 90000,
+            "created": "2024-01-27T10:57:38.092Z",
+            "modified": "2024-01-28T08:35:21.945Z",
+            "headers": [],
+            "params": [],
+            "tests": []
+        }
+    ],
+    "settings": {
+        "auth": {
+            "type": "bearer",
+            "bearer": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NWIxMGYzNzg3YzkxODE3MmE4NmYyMjEiLCJlbWFpbCI6ImhpdGVuLnNoYXJtYXMxNzA4QGdtYWlsLmNvbSIsImlhdCI6MTcwNjQzMDc4NiwiZXhwIjoxNzA2NDM0Mzg2fQ.b78f2mUkrFO5P_NAIEVtYeOAL2kMgTEkMi7uAq6oItM"
+        }
+    }
+}
